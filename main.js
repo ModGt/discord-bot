@@ -69,7 +69,7 @@ client.updateGuild = (guild, params) => {
                             guildID: `${buff.id}`,
                             ownerID: `${buff.ownerID}`,
                             prefix: `${buff.prefix}`,
-                            adminRole: params,
+                            adminRole: params[1],
                             modRole: `${buff.modRole}`
                         }
                         client.dbs.set(guild.id, updateContent);
@@ -128,6 +128,7 @@ fs.readdir('./commands/', (err, files) => {
         });
     });
 });
+
 
 client.elevation = message => {
     let permlvl = 0;
