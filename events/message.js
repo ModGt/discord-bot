@@ -1,7 +1,7 @@
 module.exports = message => {
     let client = message.client;
     if (message.author.bot) return;
-
+	if(message.isMentioned('282387455728943104')) return message.reply(`Le préfix actuel pour le bot est \`${client.dbs.get(message.guild.id).prefix}\``) ;
     if (!message.content.startsWith(client.dbs.get(message.guild.id).prefix)) return;
 
     let command = message.content.split(' ')[0].slice(client.dbs.get(message.guild.id).prefix.length);
@@ -19,7 +19,7 @@ module.exports = message => {
         if (perms < cmd.conf.permLevel) return message.reply('Vous ne pouvez pas exécuter cette commandes, vous n\'avez pas le niveau de permission requis');
         if(!cmd.conf.enabled) return message.reply('La commande a été désactivé');
         cmd.run(client, message, params, perms);
-		client.log(`Command used by ${message.author.username}(${message.author.id}): `,cmd.help.name)
+		client.log(`Command used on server (${message.guild.id}) by ${message.author.username}(${message.author.id}): `,cmd.help.name)
     }
 
 };
