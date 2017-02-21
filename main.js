@@ -110,6 +110,7 @@ client.updateGuild = (guild, params) => {
                     buff = null;
                     guild.defaultChannel.sendMessage(`Mise à jour du modRole, le modRole est actuellement :\`${client.dbs.get(guild.id).modRole}\``)
                 });
+                break;
         }
     }).catch(console.error)
 }
@@ -145,7 +146,6 @@ fs.readdir('./commands/', (err, files) => {
         });
     });
 });
-
 
 client.elevation = message => {
     let permlvl = 0;
