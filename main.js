@@ -45,12 +45,29 @@ client.deleteGuild = guild => {
 client.updateGuild = (guild, params) => {
     sql.open('./guilds.sqlite').then(()=> {
         switch (params[0]) {
+            case 'ownerID':
+                sql.run('UPDATE settings SET ownerID = ? WHERE guildID = ?', [params[1], guild.id]).then(()=> {
+                    let buff = client.dbs.get(guild.id)
+                    client.dbs.delete(guild.id)
+                    let updateContent = {
+                        guildID: `${buff.guildID}`,
+                        ownerID: params[1],
+                        prefix: `${buff.prefix}`,
+                        adminRole: `${buff.adminRole}`,
+                        modRole: `${buff.modRole}`
+                    }
+                    client.dbs.set(guild.id, updateContent);
+                    buff = null;
+                    guild.defaultChannel.sendMessage(`Le changement de propriétaire a bien été pris en compte.`)
+                });
+
+                break;
             case 'prefix':
                 sql.run('UPDATE settings SET prefix = ? WHERE guildID = ?', [params[1], guild.id]).then(()=> {
                     let buff = client.dbs.get(guild.id)
                     client.dbs.delete(guild.id)
                     let updateContent = {
-                        guildID: `${buff.id}`,
+                        guildID: `${buff.guildID}`,
                         ownerID: `${buff.ownerID}`,
                         prefix: params[1],
                         adminRole: `${buff.adminRole}`,
@@ -66,7 +83,7 @@ client.updateGuild = (guild, params) => {
                         let buff = client.dbs.get(guild.id)
                         client.dbs.delete(guild.id)
                         let updateContent = {
-                            guildID: `${buff.id}`,
+                            guildID: `${buff.guildID}`,
                             ownerID: `${buff.ownerID}`,
                             prefix: `${buff.prefix}`,
                             adminRole: params[1],
@@ -74,7 +91,7 @@ client.updateGuild = (guild, params) => {
                         }
                         client.dbs.set(guild.id, updateContent);
                         buff = null;
-                    guild.defaultChannel.sendMessage(`Mise à jour du adminRole, le adminRole est actuellement :\`${client.dbs.get(guild.id).adminRole}\``)
+                        guild.defaultChannel.sendMessage(`Mise à jour du adminRole, le adminRole est actuellement :\`${client.dbs.get(guild.id).adminRole}\``)
                     }
                 );
                 break;
@@ -83,7 +100,7 @@ client.updateGuild = (guild, params) => {
                     let buff = client.dbs.get(guild.id)
                     client.dbs.delete(guild.id)
                     let updateContent = {
-                        guildID: `${buff.id}`,
+                        guildID: `${buff.guildID}`,
                         ownerID: `${buff.ownerID}`,
                         prefix: `${buff.prefix}`,
                         adminRole: `${buff.adminRole}`,
