@@ -5,7 +5,7 @@ exports.run = (client, message, params) => {
                     embed.addField("Nom", message.author.username + "#" + message.author.discriminator + " (" + message.author.id + ")")
                     embed.addField("Alias", message.member.nickname)
                     embed.addField("Rejoind le server", message.member.joinedAt)
-                    embed.addField("R\364les", message.member.roles.array().splice(1).map(r =>r.name).join(", ") ? message.member.roles.array().splice(1).map(r =>r.name).join(", ") : "Aucun role assign?")
+                    embed.addField("R\364les", message.member.roles.array().splice(1).map(r =>r.name).join(", ") ? message.member.roles.array().splice(1).map(r =>r.name).join(", ") : "Aucun role assigné")
                     embed.addField("Status", message.member.user.presence.status)
                     return message.channel.sendEmbed(embed).catch(console.error);
                 } else {
@@ -16,7 +16,7 @@ exports.run = (client, message, params) => {
                     embed.addField("Nom", guildMember.user.username + "#" + guildMember.user.discriminator + " (" + guildMember.id + ")")
                     embed.addField("Alias", guildMember.nickname)
                     embed.addField("Rejoind le server", guildMember.joinedAt)
-                    embed.addField("R\364les", guildMember.roles.array().splice(1).map(r =>r.name).join(", ") ? guildMember.roles.array().splice(1).map(r =>r.name).join(", ") : "Aucun role assign?")
+                    embed.addField("R\364les", guildMember.roles.array().splice(1).map(r =>r.name).join(", ") ? guildMember.roles.array().splice(1).map(r =>r.name).join(", ") : "Aucun role assigné")
                     embed.addField("Status", guildMember.user.presence.status)
                     embed.setColor("#51adf6");
                     return message.channel.sendEmbed(embed).catch(console.error);
