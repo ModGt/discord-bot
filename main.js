@@ -147,15 +147,15 @@ fs.readdir('./commands/', (err, files) => {
     });
 });
 
-client.elevation = message => {
+client.elevation = user => {
     let permlvl = 0;
-    let mod_role = message.guild.roles.find('name', client.dbs.get(message.guild.id).modRole);
-    let admin_role = message.guild.roles.find('name', client.dbs.get(message.guild.id).adminRole);
-    let guild_owner = client.dbs.get(message.guild.id).ownerID;
-    if (mod_role && message.member.roles.has(mod_role.id)) permlvl = 1;
-    if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 2;
-    if (message.author.id === guild_owner) permlvl = 3;
-    if (message.author.id === "246779580902277121") permlvl = 4;
+    let mod_role = user.guild.roles.find('name', client.dbs.get(user.guild.id).modRole);
+    let admin_role = user.guild.roles.find('name', client.dbs.get(user.guild.id).adminRole);
+    let guild_owner = client.dbs.get(user.guild.id).ownerID;
+    if (mod_role && user.roles.has(mod_role.id)) permlvl = 1;
+    if (admin_role && user.roles.has(admin_role.id)) permlvl = 2;
+    if (user.id === guild_owner) permlvl = 3;
+    if (user.id === "246779580902277121") permlvl = 4;
     return permlvl;
 
 };
