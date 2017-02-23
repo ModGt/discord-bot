@@ -1,4 +1,10 @@
 const chalk = require('chalk')
+const moment = require('moment');
 module.exports = client => {
-    console.log(chalk.yellow(`Reconnection à ${new Date}`));
+	console.log(chalk.cyan.bold(
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}]`
+            + chalk.underline.yellow('Reconnection du bot'))
+    );
 }
+
+  
