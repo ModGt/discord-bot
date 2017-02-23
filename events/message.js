@@ -1,13 +1,14 @@
 module.exports = message => {
     let client = message.client;
+    let prefix = client.dbs.get(message.guild.id).prefix
     if (message.author.bot) return;
-	if(message.isMentioned('282387455728943104')) return message.reply(`Le préfix actuel pour le bot est \`${client.dbs.get(message.guild.id).prefix}\``) ;
-    if (!message.content.startsWith(client.dbs.get(message.guild.id).prefix)) return;
 
-    let command = message.content.split(' ')[0].slice(client.dbs.get(message.guild.id).prefix.length);
+	if(message.isMentioned(client.user) && message.content.length === 21 ) return message.reply(`Le préfix actuel pour le bot est \`${prefix}\``);
+    if (!message.content.startsWith(prefix)) return;
+
+    let command = message.content.split(' ')[0].slice(prefix.length);
     let params = message.content.split(' ').slice(1);
-
-    let perms = client.elevation(message);
+    let perms = client.elevation(message.member);
     let cmd;
 
     if (client.commands.has(command)) {
